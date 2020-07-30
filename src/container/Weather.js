@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import styled from 'styled-components'
+import {
+    CardContainer,
+    Title
+} from '../assets/style/MainStyle'
+
 import Card from '../components/Card/Card'
 
 let WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-const CardContainer = styled.div`
-    width: 70%;
-    margin: 100px auto;
-`
 
-const Title = styled.div`
-    text-align: center;
-    font-size: 20px;
-    text-transform: uppercase;
-    margin: 50px 0;
-`
 
 class Weather extends Component {
 
@@ -28,12 +22,10 @@ class Weather extends Component {
         fetch('https://api.openweathermap.org/data/2.5/onecall?lat=40.3945713&lon=49.7847483&exclude=hourly,minutely&appid=4ca933b85d2162350f1542a5a93c8d62&units=metric')
         .then(res => res.json())
         .then((data) => {
-            console.log(data)
             let i = 0
             data.daily.map(current => {
                 let today = ''
-                let day = new Date()
-                let date = (day.getDay() + i) % 7
+                let date = (new Date().getDay() + i) % 7
                 if( i === 0 ) today = 'Today'
                 else today =  WEEK[date]
                 this.setState(prevState => ({
